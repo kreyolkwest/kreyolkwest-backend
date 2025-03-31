@@ -2,7 +2,6 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import User from '../models/user.model.js'
 import crypto from 'crypto';
-import User from '../models/user.model.js';
 import Mailjet from 'node-mailjet'
 
 
