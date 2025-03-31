@@ -10,7 +10,9 @@ const userSchema = new mongoose.Schema({
   pro: { type: String, enum: ['oui', 'non'], default: 'non' },
   etablissements: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Etablissement' }],
   restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }],
-  activites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }]
+  activites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }],
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 });
 
 const User = mongoose.model('User', userSchema);

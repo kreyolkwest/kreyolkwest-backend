@@ -67,4 +67,8 @@ userRoutes.get('/:id', async (req, res) => {
   }
 });
 
+userRoutes.post('/reset-password-request', resetPasswordRequest);
+
+userRoutes.post('/reset-password/:token', resetPassword);
+
 export default userRoutes;
