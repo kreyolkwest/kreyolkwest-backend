@@ -17,7 +17,7 @@ dotenv.config();
 //const express = require("express");
 //const cors = require("cors");
 
-import cors from 'cors'
+//import cors from 'cors'
 
 app.use(cors({
   origin: ['https://www.kreyolkwest.com', 'https://kreyolkwest-frontend.onrender.com'], // 👈 ajoute ton domaine ici
