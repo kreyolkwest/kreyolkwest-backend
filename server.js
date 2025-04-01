@@ -19,17 +19,19 @@ dotenv.config();
 
 //import cors from 'cors'
 
+
+
+const app = express();
+app.use(cors());
+app.use(express.json());
+
+
 app.use(cors({
   origin: ['https://www.kreyolkwest.com', 'https://kreyolkwest-frontend.onrender.com'], // 👈 ajoute ton domaine ici
   credentials: true,
 }))
 
 app.options('*', cors())
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
 
 
 app.use('/api/activities', activityRoutes);
