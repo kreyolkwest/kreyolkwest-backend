@@ -1,37 +1,19 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
+import express from 'express'
+import mongoose from 'mongoose'
+import cors from 'cors'
+import dotenv from 'dotenv'
 
+// ✅ Chargement des variables d'env
+dotenv.config()
 
-// Import des routes
-import  activityRoutes from './routes/activity.routes.js';
-import restaurantRoutes from './routes/restaurant.routes.js';
-import reservationRoutes from './routes/reservation.routes.js';
-import etablissementRoutes from './routes/etablissement.routes.js';
-import userRoutes from './routes/user.routes.js';
+// ✅ Création du serveur
+const app = express()
 
-
-
+// ✅ Configuration CORS correcte
 const allowedOrigins = [
   'https://www.kreyolkwest.com',
-  'https://kreyolkwest-frontend.onrender.com' // facultatif pour test
+  'https://kreyolkwest-frontend.onrender.com'
 ]
-
-
-dotenv.config();
-//require("dotenv").config();
-//const express = require("express");
-//const cors = require("cors");
-
-//import cors from 'cors'
-
-
-
-const app = express();
-//app.use(cors());
-
-
 
 const corsOptions = {
   origin: function (origin, callback) {
@@ -44,46 +26,38 @@ const corsOptions = {
   credentials: true
 }
 
-// 🟡 APPLIQUER AVANT TOUT LE RESTE
 app.use(cors(corsOptions))
 app.options('*', cors(corsOptions))
 
+// ✅ Middlewares globaux
 app.use(express.json())
 
+// ✅ Import des routes
+import activityRoutes from './routes/activity.routes.js'
+import restaurantRoutes from './routes/restaurant.routes.js'
+import reservationRoutes from './routes/reservation.routes.js'
+import etablissementRoutes from './routes/etablissement.routes.js'
+import userRoutes from './routes/user.routes.js'
 
-app.use(express.json());
-
-
-app.use('/api/activities', activityRoutes);
-app.use('/api/restaurants', restaurantRoutes);
-app.use('/api/reservations', reservationRoutes);
-app.use('/api/etablissements', etablissementRoutes);
-app.use('/api/users', userRoutes);
-
-
-
-
-
-
+// ✅ Routes
+app.use('/api/activities', activityRoutes)
+app.use('/api/restaurants', restaurantRoutes)
+app.use('/api/reservations', reservationRoutes)
+app.use('/api/etablissements', etablissementRoutes)
+app.use('/api/users', userRoutes)
 
 app.get("/", (req, res) => {
-    res.send("API KreyolKwest en ligne !");
-});
+  res.send("API KreyolKwest en ligne !")
+})
 
-const PORT = process.env.PORT || 5004;
-//app.listen(PORT, () => console.log(`Serveur en ligne sur le port ${PORT}`));
+// ✅ Connexion MongoDB + lancement du serveur
+const PORT = process.env.PORT || 5004
 
-
-
-// Connexion à MongoDB
 mongoose.connect(process.env.MONGO_URI)
-
   .then(() => {
-    
-    console.log('✅ Connected to MongoDB');
+    console.log('✅ Connected to MongoDB')
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${process.env.PORT}`);
-    });
+      console.log(`🚀 Server running on port ${PORT}`)
+    })
   })
-  
-  .catch(err => console.error('❌ MongoDB connection error:', err));
+  .catch(err => console.error('❌ MongoDB connection error:', err))
