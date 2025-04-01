@@ -31,22 +31,25 @@ dotenv.config();
 const app = express();
 //app.use(cors());
 
-app.use(cors({
+
+
+const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = [
-      'https://www.kreyolkwest.com',
-      'https://kreyolkwest-frontend.onrender.com',
-    ];
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
+      callback(null, true)
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('Not allowed by CORS'))
     }
   },
   credentials: true
-}));
+}
 
-app.options('*', cors()); // Autorise les requêtes préliminaires (preflight)
+// 🟡 APPLIQUER AVANT TOUT LE RESTE
+app.use(cors(corsOptions))
+app.options('*', cors(corsOptions))
+
+app.use(express.json())
+
 
 app.use(express.json());
 
