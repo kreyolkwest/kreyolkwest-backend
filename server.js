@@ -33,24 +33,22 @@ const app = express();
 
 app.use(cors({
   origin: function (origin, callback) {
+    const allowedOrigins = [
+      'https://www.kreyolkwest.com',
+      'https://kreyolkwest-frontend.onrender.com',
+    ];
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true)
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error('Not allowed by CORS'));
     }
   },
   credentials: true
-}))
+}));
+
+app.options('*', cors()); // Autorise les requêtes préliminaires (preflight)
 
 app.use(express.json());
-
-
-app.use(cors({
-  origin: ['https://www.kreyolkwest.com', 'https://kreyolkwest-frontend.onrender.com'], // 👈 ajoute ton domaine ici
-  credentials: true,
-}))
-
-app.options('*', cors())
 
 
 app.use('/api/activities', activityRoutes);
