@@ -134,16 +134,18 @@ export const login = async (req, res) => {
     if (!isValid) return res.status(400).json({ message: 'Mot de passe incorrect' })
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' })
-    res.json({ token, user: { id: user._id, pseudo: user.pseudo, email: user.email } })
 
-    res.status(200).json({
+    return res.status(200).json({
       token,
       nom: user.nom,
       pro: user.pro,
-      admin: user.admin === 'oui' ? 'oui' : 'non'// ← ici !
+      admin: user.admin === 'oui' ? 'oui' : 'non',
+      pseudo: user.pseudo,
+      email: user.email
     })
   } catch (err) {
-    res.status(500).json({ message: err.message })
+    console.error('Erreur login:', err)
+    return res.status(500).json({ message: err.message })
   }
 }
 
