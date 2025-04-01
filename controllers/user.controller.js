@@ -35,7 +35,7 @@ export const resetPasswordRequest = async (req, res) => {
       Messages: [
         {
           From: {
-            Email: 'reservation.kreyolkwest@hotmail.com',
+            Email: 'kreyolkwest.gestion@gmail.com',
             Name: 'KreyolKwest',
           },
           To: [
@@ -135,6 +135,13 @@ export const login = async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: '7d' })
     res.json({ token, user: { id: user._id, pseudo: user.pseudo, email: user.email } })
+
+    res.status(200).json({
+      token,
+      nom: user.nom,
+      pro: user.pro,
+      admin: user.admin // ← ici !
+    })
   } catch (err) {
     res.status(500).json({ message: err.message })
   }

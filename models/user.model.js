@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   telephone: String,
   reservations: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Reservation' }],
   pro: { type: String, enum: ['oui', 'non'], default: 'non' },
+  admin: { type: String, enum: ['oui', 'non'], default: 'non'},
   etablissements: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Etablissement' }],
   restaurants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Restaurant' }],
   activites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Activity' }],
