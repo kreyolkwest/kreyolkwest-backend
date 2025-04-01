@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import cors from 'cors'
 
 // Import des routes
 import  activityRoutes from './routes/activity.routes.js';
@@ -10,6 +11,12 @@ import reservationRoutes from './routes/reservation.routes.js';
 import etablissementRoutes from './routes/etablissement.routes.js';
 import userRoutes from './routes/user.routes.js';
 
+
+
+const allowedOrigins = [
+  'https://www.kreyolkwest.com',
+  'https://kreyolkwest-frontend.onrender.com' // facultatif pour test
+]
 
 
 dotenv.config();
@@ -22,7 +29,19 @@ dotenv.config();
 
 
 const app = express();
-app.use(cors());
+//app.use(cors());
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  },
+  credentials: true
+}))
+
 app.use(express.json());
 
 
