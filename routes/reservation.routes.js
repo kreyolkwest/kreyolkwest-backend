@@ -4,6 +4,8 @@ import requireAuth from '../middleware/auth.js';
 import Mailjet from 'node-mailjet';
 import Etablissement from '../models/etablissement.model.js'
 import User from '../models/user.model.js'
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const reservationRoutes = express.Router();
@@ -74,7 +76,7 @@ reservationRoutes.post('/', requireAuth, async (req, res) => {
 
 
 
-    const mailjet = Mailjet.apiConnect(
+  const mailjet = Mailjet.apiConnect(
       process.env.MJ_APIKEY_PUBLIC,
       process.env.MJ_APIKEY_PRIVATE
     );

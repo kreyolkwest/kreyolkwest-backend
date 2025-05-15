@@ -12,7 +12,9 @@ const app = express()
 // ✅ Configuration CORS correcte
 const allowedOrigins = [
   'https://www.kreyolkwest.com',
-  'https://kreyolkwest-frontend.onrender.com'
+  'https://kreyolkwest-frontend.onrender.com',
+  'http://localhost:5173', 
+  'http://localhost:5004'
 ]
 
 const corsOptions = {
