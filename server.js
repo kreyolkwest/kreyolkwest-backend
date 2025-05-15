@@ -15,7 +15,8 @@ const allowedOrigins = [
   'https://kreyolkwest-frontend.onrender.com',
   'http://localhost:5173', 
   'http://localhost:5004',
-  'http://localhost:5013'
+  'http://localhost:5013',
+  'https://www.kreyolkwest.com/home'
 ]
 
 const corsOptions = {
