@@ -11,11 +11,12 @@ const activitySchema = new mongoose.Schema({
     type: { type: String, enum: ['image', 'video'], required: true },
     url: { type: String, required: true }
   }],
-  lienReservation: String,
   limitePersonnes: Number,
   presentation: String,
   typesActivite: [String],
-  etablissement: { type: mongoose.Schema.Types.ObjectId, ref: 'Etablissement' }
+  etablissement: { type: mongoose.Schema.Types.ObjectId, ref: 'Etablissement' },
+  utiliseLienExterne: { type: Boolean,  },
+  lienReservation: { type: String, default: '' }
 });
 
 const Activity = mongoose.model('Activity', activitySchema);

@@ -12,26 +12,27 @@ const app = express()
 // ✅ Configuration CORS correcte
 const allowedOrigins = [
   'https://www.kreyolkwest.com',
+  'https://kreyolkwest.com',
   'https://kreyolkwest-frontend.onrender.com',
-  'http://localhost:5173', 
-  'http://localhost:5004',
-  'http://localhost:5013',
-  'https://www.kreyolkwest.com/home'
-]
+  'http://localhost:5173'
+];
+
 
 const corsOptions = {
   origin: function (origin, callback) {
+    // Remove development check since this is for production
     if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true)
+      callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'))
+      callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true
-}
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
 
-app.use(cors(corsOptions))
-app.options('*', cors(corsOptions))
+app.use(cors(corsOptions));
 
 // ✅ Middlewares globaux
 app.use(express.json())
